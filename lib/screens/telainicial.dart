@@ -1,104 +1,194 @@
 import 'package:flutter/material.dart';
-
+import 'package:salao_de_festas00/screens/cancelaraluguel.dart';
+import 'package:salao_de_festas00/screens/gradedealugueis.dart';
+import 'package:salao_de_festas00/screens/teladealuguel.dart';
 
 class TelaInicial extends StatelessWidget {
-  const TelaInicial ({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Salão de Festas',
-      theme: ThemeData(
-
-        primarySwatch: Colors.green,
-      ),
-      home: const MyHomePage(title: 'Salão de Festas'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
-  }
-
+  const TelaInicial({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text("Salão de Festas"),
         centerTitle: true,
       ),
       body: Container(
         alignment: Alignment.center,
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const SizedBox(width: 1),
-                Text("Coluna 1"),
-                Text("Coluna 2"),
-                Text("Coluna 3"),
-                const SizedBox(width: 1),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => TeladeAluguel()
+                        )
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Aluguel",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24
+                  )),
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => GradedeAluguel()
+                        )
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Grade De Aluguel",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      )),
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => CancelarAluguel()
+                        )
+                    );
+                  },
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Cancelar Aluguel",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      )),
+                ),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("Coluna 2"),
+                TextButton(
+                  onPressed: (null),
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Opção 04",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      )
+                  ),
+                ),
+                TextButton(
+                  onPressed: (null),
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Opção 05",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      )),
+                ),
+                TextButton(
+                  onPressed: (null),
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Opção 06",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      )),
+                ),
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("Coluna 3"),
+                const SizedBox(width: 1,),
+                TextButton(
+                  onPressed: (null),
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Opção 07",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      )),
+                ),
+                TextButton(
+                  onPressed: (null),
+                  style: TextButton.styleFrom(
+                    alignment: Alignment.center,
+                    backgroundColor: Colors.cyan,
+                    fixedSize: const Size (150, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("Opção 08",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24
+                      )),
+                ),
+                const SizedBox(width: 1,),
               ],
             ),
-            Row(
-              children: [
-                Text("Coluna 4"),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Coluna 5"),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Coluna 6"),
-              ],
-            ),
+            const SizedBox(height: 10,)
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

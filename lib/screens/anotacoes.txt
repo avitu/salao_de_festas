@@ -1,0 +1,68 @@
+import 'package:flutter/material.dart';
+
+class TelaInicial extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Salão de Festas"),
+        centerTitle: true,
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const SizedBox(width: 1),
+                /*TextButton(
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => TeladeAluguel()
+                        )
+                    );
+                  },
+                  child: Text("Aluguel de Salão"),
+                ),*/
+
+                Text("Coluna 1"),
+                Text("Coluna 2"),
+                Text("Coluna 3"),
+                const SizedBox(width: 1),
+              ],
+            ),
+            Row(
+              children: [
+                Text("Coluna 2"),
+              ],
+            ),
+            Row(
+              children: [
+                Text("Coluna 3"),
+              ],
+            ),
+            Row(
+              children: [
+                Text("Coluna 4"),
+              ],
+            ),
+            Row(
+              children: [
+                Text("Coluna 5"),
+              ],
+            ),
+            Row(
+              children: [
+                Text("Coluna 6"),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
