@@ -17,6 +17,7 @@ class TelaInicial extends StatelessWidget {
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -62,7 +63,9 @@ class TelaInicial extends StatelessWidget {
                     ),
                   ),
                   child: const Text("Grade De Aluguel",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
+                          letterSpacing: 0,
                           color: Colors.black,
                           fontSize: 24
                       )),
@@ -85,6 +88,7 @@ class TelaInicial extends StatelessWidget {
                     ),
                   ),
                   child: const Text("Cancelar Aluguel",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 24
