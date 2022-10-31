@@ -25,8 +25,17 @@ class _TeladeAluguelState extends State<TeladeAluguel> {
             key: _form,
             child: TextFormField(
               controller: _info,
+               style: TextStyle(fontSize: 22),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
+                    labelText: 'Nome',
+                    prefixIcon: Icon(Icons.person_pin),
+              ),
+              keyboardType: TextInputType.name,
+
             ),
           ),
+          // Inserir dentro do forms, NOME // BLOCO E APARTAMENTO // TELEFONE // EMAIL
           TextButton(
             onPressed: () {
               Navigator.pop(context);
