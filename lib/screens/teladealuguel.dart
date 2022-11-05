@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
+
+var now = DateTime.now();
+var firstDay = DateTime(now.year,now.month - 3, now.day);
+var lastDay = DateTime(now.year,now.month + 3, now.day);
+
 
 class TeladeAluguel extends StatefulWidget {
+  TeladeAluguel ({Key? key}) : super (key: key);
+
   @override
   State<TeladeAluguel> createState() => _TeladeAluguelState();
 }
 
 class _TeladeAluguelState extends State<TeladeAluguel> {
-  final _form = GlobalKey<FormState>();
-  final _info = TextEditingController();
 
+  CalendarFormat format = CalendarFormat.twoWeeks;
 
   @override
   Widget build(BuildContext context) {
@@ -17,33 +24,18 @@ class _TeladeAluguelState extends State<TeladeAluguel> {
         title: Text("Tela de Aluguel"),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(24),
-        child: Column(
+      body: Column(
         children: [
-          Form(
-            key: _form,
-            child: TextFormField(
-              controller: _info,
-               style: TextStyle(fontSize: 22),
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
-                    labelText: 'Nome',
-                    prefixIcon: Icon(Icons.person_pin),
-              ),
-              keyboardType: TextInputType.name,
+          TableCalendar(
+            locale: 'pt',
+              focusedDay: now,
+              firstDay: firstDay,
+              lastDay: lastDay,
+            calendarFormat: format,
+            startingDayOfWeek: StartingDayOfWeek.monday,
 
-            ),
-          ),
-          // Inserir dentro do forms, NOME // BLOCO E APARTAMENTO // TELEFONE // EMAIL
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Volta para Primeira Página"),
-          ),
+          )
         ],
-        ),
       ),
     );
   }

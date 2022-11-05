@@ -14,6 +14,7 @@ class TelaInicial extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
+        padding: EdgeInsets.all(24),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -34,7 +35,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -57,7 +58,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -82,7 +83,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -104,7 +105,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -121,7 +122,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -137,7 +138,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -159,7 +160,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -175,7 +176,7 @@ class TelaInicial extends StatelessWidget {
                   style: TextButton.styleFrom(
                     alignment: Alignment.center,
                     backgroundColor: Colors.cyan,
-                    fixedSize: const Size (150, 150),
+                    fixedSize: const Size (120, 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
@@ -189,7 +190,7 @@ class TelaInicial extends StatelessWidget {
                 const SizedBox(width: 1,),
               ],
             ),
-            const SizedBox(height: 10,)
+
           ],
         ),
       ),
