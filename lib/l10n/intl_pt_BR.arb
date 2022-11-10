@@ -2,5 +2,6 @@
   "@@locale": "pt",
   "title": "Flutter Internacionalização",
   "hello": "Olá{name}",
-  "yearsOld": "Eu tenho {age} anos"
+  "yearsOld": "Eu tenho {age} anos",
+  "pt": "pt"
 }
