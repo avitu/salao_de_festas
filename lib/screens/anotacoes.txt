@@ -1,68 +1,541 @@
-import 'package:flutter/material.dart';
+///Excluído do projeto, table_calendar -- Tela de aluguel / primeiro formulário
+/*var now = DateTime.now(); //variável para data atual
+var firstDay = DateTime(now.year,now.month - 3, now.day); //variavel que obtem o primeiro dia do calendário
+var lastDay = DateTime(now.year,now.month + 3, now.day); //variavel que obtem o ultimo dia do calendário
 
-class TelaInicial extends StatelessWidget {
+bool load = false;
+List<AppEvent> events = [];
+
+
+class TeladeAluguel extends StatefulWidget {
+  const TeladeAluguel ({Key? key}) : super (key: key);
+
+  @override
+  State<TeladeAluguel> createState() => _TeladeAluguelState();
+
+
+}
+
+class _TeladeAluguelState extends State<TeladeAluguel> {
+
+  final dataController = TextEditingController(text: UtilData.obterDataDDMMAAAA(DateTime.now()));
+  final _form = GlobalKey<FormState>();
+  final Map <String, Object> _formData = {};
+
+  final _name = TextEditingController();
+  final _blocoeap = TextEditingController();
+  final _email = TextEditingController();
+  final _telefone = TextEditingController();
+  var focusedDay = DateTime.now();
+  var selectedDay = DateTime.now(); // data selecionada pelo usuário
+  bool manha = false;
+  bool tarde = false;
+  bool noite = false;
+  CalendarFormat format = CalendarFormat.twoWeeks;
+  LinkedHashMap <DateTime, List<AppEvent>>? _groupedEvents;
+
+
+  List<dynamic> _getEventForDay(DateTime date){
+    return _groupedEvents?[date] ?? [];
+
+  }
+
+  @override
+  void iniState (){
+    addSchedules(); // chama funçao addSchedules
+
+  }
+  //funcao addSchedules -- adiciona os horários ao calencario
+  Future addSchedules() async {
+    await FakerApi.getData().then((schedules){
+      for (var i=0; i< schedules.length; i++){
+        events.add(AppEvent(
+            date: DateTime.parse(schedules[i].birthday),
+            title: schedules[i].firstname));
+      }
+      setState((){
+        load = true;
+      });
+    });
+    _groupEvents(events);
+  }
+  int getHashCode(DateTime key){
+    return key.day * 100000 + key.month * 10002 + key.year;
+  }
+  _groupEvents(List<AppEvent> events){
+    _groupedEvents = LinkedHashMap(equals: isSameDay, hashCode: getHashCode);
+    for (var event in events){
+      DateTime date = DateTime.utc(event.date!.year, event.date!.month, event.date!.day, 12);
+        if (_groupedEvents![date] == null) _groupedEvents![date] = []; // se não existir evento no dia irá adicionar array vazio no linkedHashMap
+        _groupedEvents![date]!.add(event);
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Salão de Festas"),
+        title: const Text("Tela de Aluguel"),
         centerTitle: true,
-      ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const SizedBox(width: 1),
-                /*TextButton(
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => TeladeAluguel()
-                        )
-                    );
-                  },
-                  child: Text("Aluguel de Salão"),
-                ),*/
+        actions: <Widget> [
+          IconButton(
+              onPressed: () {
+                final isValid = _form.currentState!.validate();
 
-                Text("Coluna 1"),
-                Text("Coluna 2"),
-                Text("Coluna 3"),
-                const SizedBox(width: 1),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Coluna 2"),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Coluna 3"),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Coluna 4"),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Coluna 5"),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Coluna 6"),
-              ],
-            ),
-          ],
-        ),
+                if (isValid) {
+                  _form.currentState!.save();
+
+                  Provider.of<Users>(context).put(
+                    User(
+                      id: _formData['id']  == null ?  ' ' : _formData['id'].toString(),
+                      name: _formData['name']  == null ?  ' ' : _formData['name'].toString(),
+                      telefone: _formData['telefone']  == null ?  ' ' : _formData['telefone'].toString(),
+                      email: _formData['email']  == null ?  ' ' : _formData['email'].toString(),
+                      data: _formData['data']  == null ?  ' ' : _formData['data'].toString(),
+                      avatarurl: _formData['avatarurl']  == null ?  ' ' : _formData['avatarurl'].toString(),
+                      blocoeap: _formData['blocoeap']  == null ?  ' ' : _formData['blocoeap'].toString(),
+                      horario: _formData['horario']  == null ?  ' ' : _formData['horario'].toString(),
+                  ),
+                  );
+                  Navigator.of(context).pop();
+                }
+              },
+              icon: Icon(Icons.save),
+          ),
+        ],
       ),
+      body: Padding(
+        padding: EdgeInsets.all(24),
+        child: ListView(
+            children: <Widget> [
+              Text("Selecione uma data",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+              ),
+              ),
+          TableCalendar(
+            //traduz o calendário para português
+            locale: 'pt_BR',
+            eventLoader: _getEventForDay,
+            //permite clicar em um dia fora do mês, que ele irá direcionar para o outro mês
+            pageJumpingEnabled: false,
+            //função de selecionar novo dia
+            onDaySelected: (newSelectedDay, newFocusedDay){
+              setState((){
+                selectedDay = newSelectedDay;
+                focusedDay = newFocusedDay;
+              });
+            },
+
+            onFormatChanged: (CalendarFormat _format){
+              setState((){
+                format = _format;
+              });
+            },
+            //permite se determinado dia deve ser marcado como selecionado ou nao
+            selectedDayPredicate: (day) => isSameDay(day, selectedDay),
+
+              focusedDay: now,
+              firstDay: firstDay,
+              lastDay: lastDay,
+              calendarFormat: format,
+              startingDayOfWeek: StartingDayOfWeek.sunday, // configura o primeiro dia da semana
+              availableCalendarFormats: const {
+                CalendarFormat.week: 'Semana',
+                CalendarFormat.month: 'Mês',
+                CalendarFormat.twoWeeks: '2 Semanas'
+              },
+
+            //personzalização
+            headerStyle: HeaderStyle(
+              // ajuste de setas da timeline de datas
+              leftChevronIcon: const Icon(
+                Icons.chevron_left,
+                size: 24,
+                color: Colors.black87,),
+              rightChevronIcon: const Icon(
+                Icons.chevron_right,
+                size: 24,
+                color: Colors.black87,),
+
+              headerPadding: EdgeInsets.zero, //apaga padding do cabeçário
+              formatButtonVisible: true,
+              formatButtonShowsNext: false,
+              formatButtonDecoration: BoxDecoration(
+                color: Colors.grey, // cor da caixa do estilo "2semanas"
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              formatButtonTextStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              ),
+
+              titleTextStyle: const TextStyle(
+                color: Colors.blueGrey,// cor do mês
+              ),
+              titleCentered: true,
+            ),
+
+              calendarStyle: const CalendarStyle(
+                outsideDaysVisible: false,  //Oculta os dias posteriores ao último dia do mês.
+              selectedDecoration: BoxDecoration(
+                color: Colors.lightBlueAccent, //cor do dia selecionado
+                shape: BoxShape.circle,
+              ),
+                selectedTextStyle: TextStyle(
+                  color: Colors.white, //cor do texto do dia selecionado
+                ),
+                todayDecoration: BoxDecoration(
+                  //cor do dia atual, nao estando selecionado.
+                  shape:  BoxShape.circle,
+                ),
+                todayTextStyle: TextStyle(
+                  color: Colors.black87,// cor do texto do dia atual
+                ),
+
+                defaultDecoration: BoxDecoration(
+                  color: Colors.transparent,//cor dos dias da semana
+                  shape: BoxShape.circle,
+                ),
+                defaultTextStyle: TextStyle(
+                  color: Colors.blueGrey,
+                ),
+                weekendDecoration: BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+
+                ),
+                weekendTextStyle: TextStyle(
+                  color: Colors.grey,
+
+                ),
+            ),
+            calendarBuilders: CalendarBuilders(
+              dowBuilder: (context, day){
+                String text;
+                //ifs para verificar quais dias da semana estão sendo trabalhados
+                //Traduzindo o calendário para Português
+                if (day.weekday == DateTime.sunday){
+                  text = 'Dom';
+                }else if (day.weekday == DateTime.monday){
+                  text = 'Seg';
+                }else if (day.weekday == DateTime.tuesday){
+                  text = 'Ter';
+                }else if (day.weekday == DateTime.wednesday){
+                  text = 'Qua';
+                }else if (day.weekday == DateTime.thursday){
+                  text = 'Qui';
+                }else if (day.weekday == DateTime.friday){
+                  text = 'Sex';
+                }else if (day.weekday == DateTime.saturday){
+                  text = 'Sáb';
+                }else {
+                  text = 'err';
+                }
+                return Center(
+                  child: Text(text,style: const TextStyle(
+                    color: Colors.blueGrey,
+                  ),
+                  ),
+                );
+              }
+            ),
+          ),
+
+              Padding(padding: EdgeInsets.only(top: 15)),
+              Text("-----------------------------------------------",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Text("Preencha seus dados",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Text("-----------------------------------------------",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Padding(padding: EdgeInsets.only(top: 9)),
+
+              // inicio do formulário
+              Form(
+                key: _form,
+                child: Column(
+                  children: <Widget> [
+                    TextFormField(
+                      enabled: true,
+                      style: TextStyle(fontSize: 16),
+                      validator: (value){
+                        if (value == null || value.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+                        if (value.trim().length < 3) {
+                          return 'Nome muito curto. No mínimo 3 letras';
+                        }
+
+                      },
+                      onSaved: (value) => _formData['name'] = value as Object,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
+                        labelText: 'Nome',
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                      keyboardType: TextInputType.name,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.singleLineFormatter,
+                      ],
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 9)),
+                    TextFormField(
+                      enabled: true,
+                      style: TextStyle(fontSize: 16),
+                      validator: (value){
+                        if (value == null || value.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+
+                      },
+                      onSaved: (value) => _formData['email'] = value as Object,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
+                        labelText: 'E-mail',
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.singleLineFormatter,
+                      ],
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 9)),
+                    TextFormField(
+                      style: TextStyle(fontSize: 16),
+                      validator: (value){
+                        if (value == null || value.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+
+                      },
+                      onSaved: (value) => _formData['telefone'] = value as Object,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
+                        labelText: 'Telefone',
+                        prefixIcon: Icon(Icons.phone),
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        TelefoneInputFormatter(),
+                      ],
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 9)),
+                    TextFormField(
+                      style: TextStyle(fontSize: 16),
+                      validator: (value){
+                        if (value == null || value.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+
+                      },
+                      onSaved: (value) => _formData['data'] = value as Object,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
+                        labelText: 'Data',
+                        prefixIcon: Icon(Icons.date_range),
+                      ),
+                      keyboardType: TextInputType.datetime,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        DataInputFormatter(),
+                      ],
+                    ),
+                    Padding(padding: EdgeInsets.only(top: 9)),
+                    TextFormField(
+                      style: TextStyle(fontSize: 16),
+                      validator: (value){
+                        if (value == null || value.isEmpty) {
+                          return 'Campo obrigatório';
+                        }
+
+                      },
+                      onSaved: (value) => _formData['blocoeap'] = value!,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
+                        labelText: 'Bloco e Apartamento',
+                        prefixIcon: Icon(Icons.home),
+                      ),
+                      keyboardType: TextInputType.text,
+                    ),
+                  ],
+                ),
+              ),
+
+              Padding(padding: EdgeInsets.only(top: 15)),
+              Text("-----------------------------------------------",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Text("Escolha o horário",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Text("-----------------------------------------------",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Row(
+                children: [
+                  Checkbox(value: manha,
+                      onChanged: (checked){
+                        print(checked);
+                        setState((){
+                          manha = !manha;
+                        });
+                      },
+                      ),
+                  Text("Manhã",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(value: tarde,
+                    onChanged: (checked){
+                      print(checked);
+                      setState((){
+                        tarde = !tarde;
+                      });
+                    },
+                  ),
+                  Text("Tarde",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(value: noite,
+                    onChanged: (checked){
+                      print(checked);
+                      setState((){
+                        noite = !noite;
+                      });
+                    },
+                  ),
+                  Text("Noite",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+
+              Padding(padding: EdgeInsets.only(top: 5)),
+              ElevatedButton(
+                child: Text('Confirmar reserva'),
+                onPressed: () {
+                Navigator.of(context).pop();
+              },
+              ),
+        ],
+      ),
+
+    ),
     );
+
   }
-}
+}*/
+----------------------------------------------------------------------------------------------------------------------------------------------------
+/// RemoveTile
+/*import 'package:flutter/material.dart';
+  import 'package:provider/provider.dart';
+  import 'package:salao_de_festas00/models/app_routes.dart';
+  import '../models/user.dart';
+  import '../provider/users.dart';
+
+  //componente da tela de alugueis agendados
+  //lista das reservas realizadas
+
+  //ReservaTile
+  class RemoveTile extends StatelessWidget {
+
+    final User user;
+
+    const RemoveTile(this.user);
+
+    @override
+    Widget build(BuildContext context){
+
+      final avatar = user.avatarurl == null || user.avatarurl.isEmpty
+          ? CircleAvatar(child: Icon(Icons.perm_identity, color: Colors.black87,),
+      )
+          : CircleAvatar(backgroundImage: NetworkImage(user.avatarurl),);
+
+      return ListTile(
+        leading: avatar,
+        title: Text(user.name + '\n' +user.blocoeap),
+        subtitle: Text("Data " + user.data + '\n' + user.horario),
+        style: ListTileStyle.list,
+        trailing: Container(
+          width: 100,
+          child: Row(
+            children: <Widget> [
+              IconButton(
+                onPressed: () {/*
+                  showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Text('Excluir Reserva',
+                          textAlign: TextAlign.center,
+                        ),
+                        content: const Text('Tem Certeza?',
+                          textAlign: TextAlign.center,),
+                        backgroundColor: Colors.cyan,
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: (){
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Não'),
+                          ),
+                          FlatButton(
+                            onPressed: (){
+                              // exclui reserva
+                              Provider.of<Users>(context, listen: false).remove(user);
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Sim'),
+                          ),
+                        ],
+                      ));*/
+
+                },
+                icon: Icon(Icons.delete),
+                color: Colors.red,
+
+              )
+            ],
+          ),
+        ),
+      );
+    }
+  }*/

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:salao_de_festas00/screens/cancelaraluguel.dart';
-import 'package:salao_de_festas00/screens/gradedealugueis.dart';
 import 'package:salao_de_festas00/screens/teladealuguel.dart';
+import 'package:salao_de_festas00/screens/user_list.dart';
+
 
 class TelaInicial extends StatelessWidget {
   const TelaInicial({Key? key}) : super(key: key);
@@ -10,11 +11,11 @@ class TelaInicial extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Salão de Festas"),
+        title: const Text("Salão de Festas"),
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,7 +29,7 @@ class TelaInicial extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => TeladeAluguel()
+                            builder: (BuildContext context) => TeladeAluguel(),
                         )
                     );
                   },
@@ -51,7 +52,7 @@ class TelaInicial extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => GradedeAluguel()
+                            builder: (BuildContext context) => const GradedeAluguel(),
                         )
                     );
                   },
@@ -76,7 +77,7 @@ class TelaInicial extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => CancelarAluguel()
+                            builder: (BuildContext context) => CancelarAluguel(),
                         )
                     );
                   },
@@ -97,7 +98,7 @@ class TelaInicial extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
+            /*Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TextButton(
@@ -150,46 +151,7 @@ class TelaInicial extends StatelessWidget {
                       )),
                 ),
               ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const SizedBox(width: 1,),
-                TextButton(
-                  onPressed: (null),
-                  style: TextButton.styleFrom(
-                    alignment: Alignment.center,
-                    backgroundColor: Colors.cyan,
-                    fixedSize: const Size (120, 100),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                  ),
-                  child: const Text("Opção 07",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24
-                      )),
-                ),
-                TextButton(
-                  onPressed: (null),
-                  style: TextButton.styleFrom(
-                    alignment: Alignment.center,
-                    backgroundColor: Colors.cyan,
-                    fixedSize: const Size (120, 100),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                  ),
-                  child: const Text("Opção 08",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24
-                      )),
-                ),
-                const SizedBox(width: 1,),
-              ],
-            ),
+            ),*/
 
           ],
         ),

@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:salao_de_festas00/components/user_tile.dart';
+import '../provider/users.dart';
 
 class CancelarAluguel extends StatelessWidget {
-  const CancelarAluguel({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final Users users = Provider.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tela de Cancelamento de Aluguel"),
+        title: Text("Grade de Alugueis Agendados"),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 10,),
-          const Text('Em Fase de Desenvolvimento', style: TextStyle(
-              fontSize: 20, color: Colors.black, fontWeight: FontWeight.w700
-          ),),
-          const SizedBox(height: 60,),
-          Center(
-            child: TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text("Volta para Primeira Página"),
-            ),
-          ),
-        ],
+      body: ListView.builder(
+        itemCount: users.count,
+        itemBuilder: (ctx, i) => UserTile(users.byIndex(i)),
       ),
     );
   }
