@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:salao_de_festas00/models/app_routes.dart';
 import '../models/reserva_vars.dart';
 import '../provider/reservas_provider.dart';
 
@@ -10,22 +9,22 @@ import '../provider/reservas_provider.dart';
 //ReservaTile
 class RemoveTile extends StatelessWidget {
 
-  final Reserva user;
+  final Reserva reserva;
 
-  const RemoveTile(this.user);
+  const RemoveTile(this.reserva);
 
   @override
   Widget build(BuildContext context){
 
-    final avatar = user.avatarurl == null || user.avatarurl.isEmpty
+    final avatar = reserva.avatarurl == null || reserva.avatarurl.isEmpty
         ? CircleAvatar(child: Icon(Icons.perm_identity, color: Colors.black87,),
     )
-        : CircleAvatar(backgroundImage: NetworkImage(user.avatarurl),);
+        : CircleAvatar(backgroundImage: NetworkImage(reserva.avatarurl),);
 
     return ListTile(
       leading: avatar,
-      title: Text(user.name + '\n' +user.blocoeap),
-      subtitle: Text("Data " + user.data + '\n' + user.horario),
+      title: Text(reserva.name + '\n' +reserva.blocoeap),
+      subtitle: Text("Data " + reserva.data + '\n' + reserva.horario),
       style: ListTileStyle.list,
       trailing: Container(
         width: 50,
@@ -43,19 +42,23 @@ class RemoveTile extends StatelessWidget {
                           textAlign: TextAlign.center,),
                         backgroundColor: Colors.cyan,
                         actions: <Widget>[
-                          FlatButton(
+                          TextButton(
                             onPressed: (){
                               Navigator.of(context).pop();
                             },
-                            child: Text('Não'),
+                            child: Text('Não', textAlign: TextAlign.start, style: TextStyle(
+                              color: Colors.black87
+                            ),),
                           ),
-                          FlatButton(
+                          TextButton(
                             onPressed: (){
                               // exclui reserva
-                              Provider.of<ReservaListProvider>(context, listen: false).remove(user);
+                              Provider.of<ReservaListProvider>(context, listen: false).remove(reserva);
                               Navigator.of(context).pop();
                             },
-                            child: Text('Sim'),
+                            child: Text('Sim', textAlign: TextAlign.start, style: TextStyle(
+                                color: Colors.black87
+                            ),),
                           ),
                         ],
                       ));

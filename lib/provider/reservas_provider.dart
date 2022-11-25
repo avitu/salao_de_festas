@@ -28,39 +28,39 @@ class ReservaListProvider with ChangeNotifier{
   //passando um elemento que já existe ele altera
   //se não existir ele incluí
   //verifica se o usuário não é nulo
-  void put(Reserva user){
-    if (user == null) {
+  void put(Reserva reserva){
+    if (reserva == null) {
       return;
     }
 
     //altera
-    if (user.id != null &&
-        user.id.trim().isNotEmpty &&
-        _items.containsKey(user.id)) {
+    if (reserva.id != null &&
+        reserva.id.trim().isNotEmpty &&
+        _items.containsKey(reserva.id)) {
       _items.update(
-        user.id,
+        reserva.id,
             (_) => Reserva(
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            telefone: user.telefone,
-            data: user.data,
-            blocoeap: user.blocoeap,
-            horario: user.horario,
-            avatarurl: user.avatarurl,
+            id: reserva.id,
+            name: reserva.name,
+            email: reserva.email,
+            telefone: reserva.telefone,
+            data: reserva.data,
+            blocoeap: reserva.blocoeap,
+            horario: reserva.horario,
+            avatarurl: reserva.avatarurl,
       ),);
     } else {
       //incluindo, adicionando se não tiver presente
       final id = Random().nextDouble().toString();
       _items.putIfAbsent(id, () => Reserva(
         id: id,
-        name: user.name,
-        email: user.email,
-        telefone: user.telefone,
-        data: user.data,
-        avatarurl: user.avatarurl,
-        blocoeap: user.blocoeap,
-        horario: user.horario,
+        name: reserva.name,
+        email: reserva.email,
+        telefone: reserva.telefone,
+        data: reserva.data,
+        avatarurl: reserva.avatarurl,
+        blocoeap: reserva.blocoeap,
+        horario: reserva.horario,
       ),);
     }
 
@@ -69,9 +69,9 @@ class ReservaListProvider with ChangeNotifier{
   }
 
   //metódo para deletar / cancelar reserva solicitada
-  void remove (Reserva user) {
-    if (user != null && user.id != null) {
-      _items.remove(user.id);
+  void remove (Reserva reserva) {
+    if (reserva != null && reserva.id != null) {
+      _items.remove(reserva.id);
       notifyListeners();
     }
   }

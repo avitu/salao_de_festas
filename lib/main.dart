@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:salao_de_festas00/models/app_routes.dart';
 import 'package:salao_de_festas00/provider/reservas_provider.dart';
 import 'package:salao_de_festas00/screens/teladealuguel.dart';
-import 'package:salao_de_festas00/screens/teladealuguel02.dart';
 import 'screens/telainicial.dart';
 
 void main() {

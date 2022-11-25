@@ -8,22 +8,22 @@ import '../models/reserva_vars.dart';
 //ReservaTile
 class ReservaTile extends StatelessWidget {
 
-  final Reserva user;
+  final Reserva reserva;
 
-  const ReservaTile(this.user);
+  const ReservaTile(this.reserva);
 
   @override
   Widget build(BuildContext context){
 
-    final avatar = user.avatarurl == null || user.avatarurl.isEmpty
+    final avatar = reserva.avatarurl == null || reserva.avatarurl.isEmpty
     ? CircleAvatar(child: Icon(Icons.perm_identity, color: Colors.black87,),
     )
-        : CircleAvatar(backgroundImage: NetworkImage(user.avatarurl),);
+        : CircleAvatar(backgroundImage: NetworkImage(reserva.avatarurl),);
 
     return ListTile(
       leading: avatar,
-      title: Text(user.name + '\n' +user.blocoeap),
-      subtitle: Text("Data " + user.data + '\n' + user.horario),
+      title: Text(reserva.name + '\n' +reserva.blocoeap),
+      subtitle: Text("Data " + reserva.data + '\n' + reserva.horario),
       style: ListTileStyle.list,
       trailing: Container(
         width: 100,
@@ -38,7 +38,7 @@ class ReservaTile extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushNamed(
                       AppRoutes.RESERVA_FORM,
-                    arguments: user,
+                    arguments: reserva,
                   );
                 },
                 icon: Icon(Icons.edit),

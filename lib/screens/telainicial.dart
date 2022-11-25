@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salao_de_festas00/screens/cancelaraluguel.dart';
 import 'package:salao_de_festas00/screens/teladealuguel.dart';
-import 'package:salao_de_festas00/screens/teladealuguel02.dart';
 import 'package:salao_de_festas00/screens/gradedealugueis.dart';
 
 import '../provider/reservas_provider.dart';
@@ -13,7 +12,7 @@ class TelaInicial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReservaListProvider users = Provider.of(context);
+    final ReservaListProvider reservas = Provider.of(context);
 
 
     return Scaffold(
