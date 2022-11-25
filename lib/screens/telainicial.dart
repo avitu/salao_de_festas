@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:salao_de_festas00/screens/cancelaraluguel.dart';
 import 'package:salao_de_festas00/screens/teladealuguel.dart';
-import 'package:salao_de_festas00/screens/user_list.dart';
+import 'package:salao_de_festas00/screens/teladealuguel02.dart';
+import 'package:salao_de_festas00/screens/gradedealugueis.dart';
+
+import '../provider/reservas_provider.dart';
 
 
 class TelaInicial extends StatelessWidget {
-  const TelaInicial({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    final ReservaListProvider users = Provider.of(context);
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Salão de Festas"),
@@ -52,7 +59,7 @@ class TelaInicial extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (BuildContext context) => const GradedeAluguel(),
+                            builder: (BuildContext context) => GradedeAluguel(),
                         )
                     );
                   },

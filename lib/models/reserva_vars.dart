@@ -1,7 +1,7 @@
 
 //variaveis que recebem os dados do formulario de reserva
 
-class User {
+class Reserva {
 
   final String id;
   final String name;
@@ -12,7 +12,7 @@ class User {
   final String avatarurl;
   final String horario;
 
-   const User({
+   const Reserva ({
      required this.id,
      required this.name,
      required this.telefone,

@@ -1,16 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:salao_de_festas00/data/dummy_users.dart';
-import '../models/user.dart';
+import 'package:salao_de_festas00/data/dummy_reserva.dart';
+import '../models/reserva_vars.dart';
 // provider
 
 // Users >>> ReservaListProvider
-class Users with ChangeNotifier{
-  final Map<String, User> _items = {...DUMMY_USER};
+// metodos de editar / apagar e adicionar reservas
+class ReservaListProvider with ChangeNotifier{
+  final Map<String, Reserva> _items = {...DUMMY_RESERVA};
 
   //metodo get, que vai retornar lista de reservas
-  List <User> get all {
+  List <Reserva> get all {
     return [..._items.values];
   }
   int get count {
@@ -19,7 +20,7 @@ class Users with ChangeNotifier{
   }
 
   //metodo byIndex
-  User byIndex(int i ){
+  Reserva byIndex(int i ){
   return _items.values.elementAt(i);
   }
 
@@ -27,7 +28,7 @@ class Users with ChangeNotifier{
   //passando um elemento que já existe ele altera
   //se não existir ele incluí
   //verifica se o usuário não é nulo
-  void put(User user){
+  void put(Reserva user){
     if (user == null) {
       return;
     }
@@ -38,7 +39,7 @@ class Users with ChangeNotifier{
         _items.containsKey(user.id)) {
       _items.update(
         user.id,
-            (_) => User(
+            (_) => Reserva(
             id: user.id,
             name: user.name,
             email: user.email,
@@ -51,7 +52,7 @@ class Users with ChangeNotifier{
     } else {
       //incluindo, adicionando se não tiver presente
       final id = Random().nextDouble().toString();
-      _items.putIfAbsent(id, () => User(
+      _items.putIfAbsent(id, () => Reserva(
         id: id,
         name: user.name,
         email: user.email,
@@ -68,7 +69,7 @@ class Users with ChangeNotifier{
   }
 
   //metódo para deletar / cancelar reserva solicitada
-  void remove (User user) {
+  void remove (Reserva user) {
     if (user != null && user.id != null) {
       _items.remove(user.id);
       notifyListeners();

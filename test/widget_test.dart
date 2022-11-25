@@ -13,7 +13,7 @@ import 'package:salao_de_festas00/screens/telainicial.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const TelaInicial());
+    await tester.pumpWidget(TelaInicial());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

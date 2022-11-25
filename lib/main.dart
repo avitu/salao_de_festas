@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:salao_de_festas00/models/app_routes.dart';
-import 'package:salao_de_festas00/provider/users.dart';
+import 'package:salao_de_festas00/provider/reservas_provider.dart';
 import 'package:salao_de_festas00/screens/teladealuguel.dart';
+import 'package:salao_de_festas00/screens/teladealuguel02.dart';
 import 'screens/telainicial.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-      create: (ctx) => Users(),
+      create: (ctx) => ReservaListProvider(),
         )
     ],
 
@@ -31,8 +32,8 @@ class MyApp extends StatelessWidget {
           ),
 
           routes: {
-            AppRoutes.HOME: (_) => const TelaInicial(),
-            AppRoutes.USER_FORM: (_) => TeladeAluguel(),
+            AppRoutes.HOME: (_) => TelaInicial(),
+            AppRoutes.RESERVA_FORM: (_) => TeladeAluguel(),
           },
     ),
   );

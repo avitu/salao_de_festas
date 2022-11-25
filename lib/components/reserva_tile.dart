@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:salao_de_festas00/models/app_routes.dart';
-import '../models/user.dart';
+import '../models/reserva_vars.dart';
 
 //componente da tela de alugueis agendados
 //lista das reservas realizadas
 
 //ReservaTile
-class UserTile extends StatelessWidget {
+class ReservaTile extends StatelessWidget {
 
-  final User user;
+  final Reserva user;
 
-  const UserTile(this.user);
+  const ReservaTile(this.user);
 
   @override
   Widget build(BuildContext context){
@@ -37,7 +37,7 @@ class UserTile extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                      AppRoutes.USER_FORM,
+                      AppRoutes.RESERVA_FORM,
                     arguments: user,
                   );
                 },

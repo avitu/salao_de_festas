@@ -2,12 +2,12 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:salao_de_festas00/models/user.dart';
-import '../provider/users.dart';
+import 'package:salao_de_festas00/models/reserva_vars.dart';
+import '../provider/reservas_provider.dart';
 
 
 
-class TeladeAluguel extends StatelessWidget {
+/*class TeladeAluguel extends StatelessWidget {
 
   final _form = GlobalKey<FormState>();
   final Map<String, String> _formData = {};
@@ -28,7 +28,7 @@ class TeladeAluguel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = ModalRoute.of(context)?.settings.arguments as User; {}
+    final user = ModalRoute.of(context)?.settings.arguments as User;
 
     _loadFormData(user);
 
@@ -260,4 +260,4 @@ class TeladeAluguel extends StatelessWidget {
     );
 
   }
-}
+}*/
